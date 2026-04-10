@@ -29,7 +29,7 @@ const products = [
         oldPrice: 4.29,
         rating: 4.3,
         reviews: 98,
-        image: 'images/milk.jpg',
+        image: 'https://melcom.com/media/catalog/product/cache/d0e1b0d5c74d14bfa9f7dd43ec52d082/i/d/ideal_original_trip_to_dubai_150g-1.jpg',
         badge: 'Fresh'
     },
     {
@@ -40,7 +40,7 @@ const products = [
         oldPrice: null,
         rating: 4.6,
         reviews: 189,
-        image: 'images/apples.jpg',
+        image: 'https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8YXBwbGVzfGVufDB8fDB8fHww',
         badge: 'Organic'
     },
     {
