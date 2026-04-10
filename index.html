@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <title>Adoma Supermarket | The Family Supermarket</title>
+</head>
+<body>
+    <nav class="nav-bar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="#" class="logo">adoma<span>supermarket</span></a>
+
+            <div class="search-container" id="searchContainer">
+                <input type="text" id="searchInput" placeholder="Search products..." autocomplete="off" aria-label="Search products" aria-expanded="false" aria-controls="searchDropdown">
+                <i class="fas fa-search" aria-hidden="true"></i>
+                <div class="search-results-dropdown" id="searchDropdown" role="listbox" aria-label="Search results"></div>
+            </div>
+
+            <div class="nav-links">
+                <a href="#">Home</a>
+                <a href="#products-section">Products</a>
+                <a href="#promo-section">Deals</a>
+                <a href="#footer">Contact</a>
+            </div>
+
+            <div class="nav-icons">
+                <div class="icon-wrapper" id="cartIcon" role="button" tabindex="0" aria-label="Open shopping cart">
+                    <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                    <span class="badge" id="cartCount" aria-label="Cart items">0</span>
+                </div>
+                <div class="icon-wrapper" role="button" tabindex="0" aria-label="Wishlist">
+                    <i class="fas fa-heart" aria-hidden="true"></i>
+                </div>
+                <div class="icon-wrapper" role="button" tabindex="0" aria-label="Account">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!--mobile menu-->
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+        <a href="#"><i class="fas fa-home" aria-hidden="true"></i> Home</a>
+        <a href="#products-section"><i class="fas fa-box" aria-hidden="true"></i> Products</a>
+        <a href="#promo-section"><i class="fas fa-tag" aria-hidden="true"></i> Deals</a>
+        <a href="#"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a>
+        <div class="mobile-divider"></div>
+        <a href="#" id="mobileCartLink"><i class="fas fa-shopping-cart" aria-hidden="true"></i> cart <span class="badge-mobile" id="mobileCartCount">0</span></a>
+        <a href="#"><i class="fas fa-heart" aria-hidden="true"></i> Wishlist</a>
+        <a href="#"><i class="fas fa-user" aria-hidden="true"></i> Account</a>
+    </div>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="animate__animated animate__fadeInUp">The Family Supermarket</h1>
+            <p class="animate__animated animate__fadeInUp animate__delay-1s">Discover the finest quality products for your family, delivered with love</p>
+            <div class="hero-buttons animate__animated animate__fadeInUp animate__delay-2s">
+                <a href="#products-section" class="btn btn-primary">
+                    <i class="fas fa-shopping-bag" aria-hidden="true"></i>
+                    Shop Now
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="products" id="products-section">
+        <div class="products-header">
+            <div>
+                <h2 class="section-title" style="margin-bottom: 0;">Featured Products</h2>
+                <p class="section-subtitle" style="text-align: left;">Hand-picked for you</p>
+            </div>
+            <div class="filter-buttons" role="tablist" aria-label="Filter products">
+                <button class="filter-btn active" role="tab" aria-selected="true">All</button>
+                <button class="filter-btn" role="tab" aria-selected="false">Fresh</button>
+                <button class="filter-btn" role="tab" aria-selected="false">On Sale</button>
+                <button class="filter-btn" role="tab" aria-selected="false">Best Sellers</button>
+                <button class="filter-btn" role="tab" aria-selected="false">Beverages</button>
+            </div>
+        </div>
+
+        <div class="products-grid" id="productsGrid"></div>
+    </section>
+
+    <section class="promo-banner" id="promo-section">
+        <div class="promo-content">
+            <h2 class="animate__animated animate__tada">🔥 Weekend Mega Sale 🔥</h2>
+            <p>Get up to 50% off on selected items</p>
+            <div class="countdown" id="countdown" aria-label="Sale countdown timer">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="days">00</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">00</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">00</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">00</span>
+                    <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--features section-->
+    <section class="features">
+        <h2 class="section-title" style="text-align: center; margin-bottom: 3rem;">Why Choose Adoma?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-truck" aria-hidden="true"></i>
+                </div>
+                <h3>Free Delivery</h3>
+                <p>Free delivery on orders over $50. Fast and reliable service to your doorstep.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-leaf" aria-hidden="true"></i>
+                </div>
+                <h3>Fresh Products</h3>
+                <p>We source the freshest products daily to ensure quality for your family.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-clock" aria-hidden="true"></i>
+                </div>
+                <h3>24/7 Support</h3>
+                <p>Our customer service team is always ready to help you with any questions.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-wallet" aria-hidden="true"></i>
+                </div>
+                <h3>Best Prices</h3>
+                <p>We guarantee the best prices on all our products with price match promise.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <h2 class="section-title animate__animated animate__fadeInUp">What Our Customers Say</h2>
+        <p class="section-subtitle animate__animated animate__fadeInUp animate__delay-1s">Join thousands of happy families</p>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card animate__animated animate__fadeInLeft">
+                <div class="quote-icon"><i class="fas fa-quote-right" aria-hidden="true"></i></div>
+                <p class="testimonial-text">"The freshest produce I've ever bought online! the delivery was fast. Highly recommended!"</p>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson" class="author-avatar">
+                    <div class="author-info">
+                        <h4>Sarah Johnson</h4>
+                        <p>Verified Buyer</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card animate__animated animate__fadeInLeft">
+                <div class="quote-icon"><i class="fas fa-quote-right" aria-hidden="true"></i></div>
+                <p class="testimonial-text">"The freshest produce I've ever bought online! the delivery was fast. Highly recommended!"</p>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson" class="author-avatar">
+                    <div class="author-info">
+                        <h4>Sarah Johnson</h4>
+                        <p>Verified Buyer</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card animate__animated animate__fadeInLeft">
+                <div class="quote-icon"><i class="fas fa-quote-right" aria-hidden="true"></i></div>
+                <p class="testimonial-text">"The freshest produce I've ever bought online! the delivery was fast. Highly recommended!"</p>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah Johnson" class="author-avatar">
+                    <div class="author-info">
+                        <h4>Sarah Johnson</h4>
+                        <p>Verified Buyer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--newsletter-->
+    <section class="newsletter">
+        <div class="newsletter-container">
+            <h2 class="animate__animated animate__pulse">Subscribe to Our Newsletter</h2>
+            <p>Get exclusive offers, and updates delivered to your inbox</p>
+            <form class="newsletter-form" id="newsletterForm" novalidate>
+                <input type="email" id="newsletterEmail" placeholder="Enter your email address" required aria-label="Email address for newsletter">
+                <button type="submit">
+                    <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                    Subscribe
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Adoma Supermarket</h3>
+                <p>Your trusted family supermarket since 2026. We bring freshness to your doorstep with love and care.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fab fa-youtube" aria-hidden="true"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#products-section">Our Products</a></li>
+                    <li><a href="#promo-section">Today's Deals</a></li>
+                    <li><a href="#">Delivery Information</a></li>
+                    <li><a href="#">Contact us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul class="footer-links">
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Returns & Refunds</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p><i class="fas fa-map-marker-alt" style="margin-right: 10px; color: var(--orange);"></i> 123 Market Street, Accra, Ghana</p>
+                <p><i class="fas fa-phone" style="margin-right: 10px; color: var(--orange);"></i> +233 456 789</p>
+                <p><i class="fas fa-envelope" style="margin-right: 10px; color: var(--orange);"></i> hello@adoma.com</p>
+                <p><i class="fas fa-clock" style="margin-right: 10px; color: var(--orange);"></i> Mon-Sat: 8AM - 9PM, Sun: 9AM - 6PM</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p id="footerCopyright"></p>
+        </div>
+    </footer>
+
+    <!--cart modal-->
+    <div class="cart-modal-overlay" id="cartOverlay" aria-hidden="true"></div>
+
+    <div class="cart-modal" id="cartModal" role="dialog" aria-modal="true" aria-label="Shopping Cart">
+        <div class="cart-modal-header">
+            <h3><i class="fas fa-shopping-cart" aria-hidden="true"></i> Your Cart (<span id="cartItemCount">0</span>)</h3>
+            <button class="close-cart" id="closeCartBtn" aria-label="Close cart"><i class="fas fa-times" aria-hidden="true"></i></button>
+        </div>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-summary" id="cartSummary"></div>
+    </div>
+
+    <!--checkout-->
+    <div class="checkout-modal" id="checkoutModal" role="dialog" aria-modal="true" aria-label="Checkout">
+        <div class="checkout-header">
+            <h3><i class="fas fa-credit-card" aria-hidden="true"></i> Checkout</h3>
+            <button class="close-cart" id="closeCheckoutBtn" aria-label="Close checkout"><i class="fas fa-times" aria-hidden="true"></i></button>
+        </div>
+        <form class="checkout-form" id="checkoutForm" novalidate>
+            <div class="form-group">
+                <label for="fullName">Full Name *</label>
+                <input type="text" id="fullName" required placeholder="Enter your full name" autocomplete="name">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" required placeholder="your@email.com" autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone *</label>
+                    <input type="tel" id="phone" required placeholder="+233 XXX XXX" autocomplete="tel">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Delivery Address *</label>
+                <textarea id="address" required placeholder="Enter your full address" rows="2" autocomplete="street-address"></textarea>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="city">City *</label>
+                    <input type="text" id="city" required placeholder="Accra" autocomplete="address-level2">
+                </div>
+            </div>
+            <div class="order-summary" id="checkoutSummary"></div>
+            <div class="checkout-actions">
+                <button type="button" class="btn-cart btn-back" id="backToCart">
+                    <i class="fas fa-check" aria-hidden="true"></i> Place Order
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!--success modal-->
+    <div class="success-modal" id="successModal" role="dialog" aria-modal="true" aria-label="Order success">
+        <div class="success-icon"><i class="fas fa-check" aria-hidden="true"></i></div>
+        <h3>Order Placed Successfully</h3>
+        <p id="successMessage">Thank you for shopping with Adoma. Your order has been received</p>
+        <button class="btn-success" id="continueShopping">Continue Shopping</button>
+    </div>
+
+    <!--cart notification-->
+    <div class="cart-notification" id="cartNotification" role="status" aria-live="polite">
+        <i class="fas fa-check-circle" aria-hidden="true"></i>
+        <span>Product added to cart</span>
+    </div>
+
+    <button class="back-to-top" id="backToTop" aria-label="back to top">
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
+    <script src="script.js"></script>
+    <script src="checkout.js"></script>
+</body>
+</html>

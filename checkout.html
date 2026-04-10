@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="checkout.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <title>Checkout | Adoma Supermarket</title>
+</head>
+<body>
+    <nav class="nav-bar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">adoma<span>supermarket</span></a>
+            <a href="index.html" class="back-link"><i class="fas fa-arrow-left" aria-hidden="true"></i>Back to store</a>
+        </div>
+    </nav>
+
+    <div class="breadcrumb">
+        <div class="breadcrumb-inner">
+            <a href="index.html">Home</a>
+            <i class="fas fa-chevron-right" aria-hidden="true"></i>
+            <a href="index.html">Cart</a>
+            <i class="fas fa-chevron-right" aria-hidden="true"></i>
+            <span>Checkout</span>
+        </div>
+    </div>
+
+    <!-- Progress steps -->
+    <div class="progress-bar">
+        <div class="progress-inner">
+            <div class="step completed">
+                <div class="step-circle"><i class="fas fa-check"></i></div>
+                <span class="step-label">Cart</span>
+            </div>
+            <div class="step active">
+                <div class="step-circle">2</div>
+                <span class="step-label">Details</span>
+            </div>
+            <div class="step">
+                <div class="step-circle">3</div>
+                <span class="step-label">Confirm</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success screen (hidden by default) -->
+    <div style="max-width:1200px;margin:0 auto;padding:2.5rem 2rem;display:none;" id="successWrapper">
+        <div class="success-screen visible">
+            <div class="success-icon-wrap">
+                <i class="fas fa-check-circle" aria-hidden="true"></i>
+            </div>
+            <!-- FIX: typo "PLaced" → "Placed" -->
+            <h2>Order Placed Successfully!</h2>
+            <p>Thank you for shopping with Adoma Supermarket</p>
+            <p>Your order confirmation number is:</p>
+            <div class="order-number-badge" id="orderNumberDisplay">-</div>
+            <p style="color:#888;font-size:0.9rem;margin-bottom:1.5rem">
+                A confirmation has been saved. We'll get your order ready shortly!
+            </p>
+            <div class="success-actions">
+                <a href="index.html" class="btn-secondary">
+                    <i class="fas fa-shopping-bag" aria-hidden="true"></i>Continue Shopping
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main checkout content -->
+    <div class="checkout-wrapper" id="checkoutContent">
+
+        <!-- Left: form -->
+        <div id="formArea">
+
+            <!-- Empty cart fallback -->
+            <div class="empty-checkout" id="emptyState" style="display:none;">
+                <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                <h2>Your cart is empty</h2>
+                <p>Add some products before checking out.</p>
+                <a href="index.html" class="btn-go-shop">
+                    <i class="fas fa-store" aria-hidden="true"></i>Go Shopping
+                </a>
+            </div>
+
+            <!-- Checkout form -->
+            <div class="form-card" id="checkoutFormCard">
+                <div class="form-card-header">
+                    <i class="fas fa-user" aria-hidden="true"></i>
+                    <h2>Delivery Information</h2>
+                </div>
+                <div class="form-card-body">
+                    <form id="checkoutForm" novalidate>
+                        <div class="section-divider"><span>Personal Details</span></div>
+
+                        <div class="form-group">
+                            <label for="fullName">Full Name*</label>
+                            <input type="text" id="fullName" placeholder="Enter your full name" autocomplete="name" required>
+                            <div class="field-error" id="fullNameError">Please enter your full name.</div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email Address*</label>
+                                <input type="email" id="email" placeholder="your@email.com" autocomplete="email" required>
+                                <div class="field-error" id="emailError">Please enter a valid email.</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number*</label>
+                                <input type="tel" id="phone" placeholder="+233 XXX XXX" autocomplete="tel" required>
+                                <div class="field-error" id="phoneError">Please enter your phone number.</div>
+                            </div>
+                        </div>
+
+                        <div class="section-divider"><span>Delivery Address</span></div>
+
+                        <div class="form-group">
+                            <label for="address">Street Address*</label>
+                            <textarea id="address" rows="2" placeholder="Enter your full delivery address" autocomplete="street-address" required></textarea>
+                            <div class="field-error" id="addressError">Please enter your delivery address.</div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="city">City*</label>
+                                <input type="text" id="city" placeholder="Accra" autocomplete="address-level2" required>
+                                <div class="field-error" id="cityError">Please enter your city.</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="deliveryTime">Preferred Delivery Time</label>
+                                <select id="deliveryTime">
+                                    <option value="morning">Morning (8AM - 12PM)</option>
+                                    <option value="afternoon">Afternoon (12PM - 4PM)</option>
+                                    <option value="evening">Evening (4PM - 8PM)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="section-divider"><span>Payment Method</span></div>
+
+                        <div class="payment-methods" id="paymentMethods" role="radiogroup" aria-label="Select payment method">
+                            <div class="payment-method selected" data-method="card" role="radio" aria-checked="true" tabindex="0">
+                                <i class="fas fa-credit-card" aria-hidden="true"></i>
+                                <span>Card</span>
+                            </div>
+                            <div class="payment-method" data-method="mobile" role="radio" aria-checked="false" tabindex="0">
+                                <i class="fas fa-mobile-alt" aria-hidden="true"></i>
+                                <span>Mobile Money</span>
+                            </div>
+                            <div class="payment-method" data-method="cash" role="radio" aria-checked="false" tabindex="0">
+                                <i class="fas fa-money-bill-wave" aria-hidden="true"></i>
+                                <span>Cash on Delivery</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: order summary -->
+        <div id="summaryArea">
+            <div class="order-summary-card">
+                <div class="order-summary-header">
+                    <i class="fas fa-receipt" aria-hidden="true"></i>
+                    <h3>Order Summary</h3>
+                </div>
+                <div class="order-items" id="orderItems"></div>
+                <div class="order-totals" id="orderTotals"></div>
+
+                <div class="trust-badges">
+                    <div class="trust-badge"><i class="fas fa-shield-alt" aria-hidden="true"></i><span>Secure &amp; encrypted checkout</span></div>
+                    <div class="trust-badge"><i class="fas fa-undo" aria-hidden="true"></i><span>Easy returns within 7 days</span></div>
+                    <div class="trust-badge"><i class="fas fa-headset" aria-hidden="true"></i><span>24/7 customer support</span></div>
+                </div>
+
+                <div class="submit-section">
+                    <button class="btn-place-order" id="placeOrderBtn" type="button">
+                        <i class="fas fa-lock" aria-hidden="true"></i> Place Order Securely
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+    <script src="checkout.js"></script>
+</body>
+</html>

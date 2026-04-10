@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Adoma Supermarket</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-brand">
+            <a href="index.html" class="brand-logo">adoma<span>admin</span></a>
+            <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Admin navigation">
+            <div class="nav-section-label">Main</div>
+            <a href="#" class="sidebar-link active" data-tab="dashboard">
+                <i class="fas fa-chart-pie"></i><span>Dashboard</span>
+            </a>
+            <a href="#" class="sidebar-link" data-tab="orders">
+                <i class="fas fa-receipt"></i><span>Orders</span>
+                <span class="nav-badge" id="pendingBadge">0</span>
+            </a>
+            <a href="#" class="sidebar-link" data-tab="products">
+                <i class="fas fa-box"></i><span>Products</span>
+            </a>
+            <a href="#" class="sidebar-link" data-tab="customers">
+                <i class="fas fa-users"></i><span>Customers</span>
+            </a>
+
+            <div class="nav-section-label">Analytics</div>
+            <a href="#" class="sidebar-link" data-tab="analytics">
+                <i class="fas fa-chart-bar"></i><span>Analytics</span>
+            </a>
+
+            <div class="nav-section-label">Settings</div>
+            <a href="#" class="sidebar-link" data-tab="settings">
+                <i class="fas fa-cog"></i><span>Settings</span>
+            </a>
+            <a href="index.html" class="sidebar-link">
+                <i class="fas fa-store"></i><span>View Store</span>
+            </a>
+        </nav>
+    </aside>
+
+
+    <main class="main-content" id="mainContent">
+
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="mobile-menu-btn" id="mobileSidebarBtn" aria-label="Open menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 class="page-title" id="pageTitle">Dashboard</h1>
+            </div>
+            <div class="topbar-right">
+                <div class="topbar-date" id="topbarDate"></div>
+                <button class="btn-refresh" id="refreshBtn" title="Refresh data">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+                <a href="index.html" class="btn-store">
+                    <i class="fas fa-external-link-alt"></i> Live Store
+                </a>
+            </div>
+        </header>
+
+
+        <div class="tab-content active" id="tab-dashboard">
+
+            <div class="kpi-grid" id="kpiGrid"></div>
+
+            <!--charts row-->
+            <div class="charts-row">
+                <div class="chart-card wide">
+                    <div class="chart-card-header">
+                        <h3><i class="fas fa-chart-line"></i> Revenue Overview</h3>
+                        <div class="chart-period">
+                            <button class="period-btn active" data-period="7">7d</button>
+                            <button class="period-btn" data-period="30">30d</button>
+                            <button class="period-btn" data-period="90">90d</button>
+                        </div>
+                    </div>
+                    <canvas id="revenueChart" height="100"></canvas>
+                </div>
+
+                <div class="chart-card">
+                    <div class="chart-card-header">
+                        <h3><i class="fas fa-pie-chart"></i> Sales by category</h3>
+                    </div>
+                    <canvas id="categoryChart" height="200"></canvas>
+                </div>
+            </div>
+
+            <!--recent and top products-->
+            <div class="bottom-row">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3>Recent Orders</h3>
+                        <button class="btn-link" onclick="switchTab('orders')">View All </button>
+                    </div>
+                    <div id="recentOrdersTable"></div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3>Top Products</h3>
+                    </div>
+                    <div id="topProductsList"></div>
+                </div>
+            </div>
+        </div>
+
+        <!--orders tab-->
+        <div class="tab-content" id="tab-orders">
+            <div class="panel">
+                <div class="panel-header">
+                    <h3>All Orders</h3>
+                    <div class="panel-actions">
+                        <select id="orderStatusFilter" class="filter-select">
+                            <option value="all">All Statuses</option>
+                            <option value="pending">Pending</option>
+                            <option value="processing">Processing</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                        <button class="btn-icon" id="exportOrdersBtn" title="Export CSV">
+                            <i class="fas fa-download"></i> Export
+                        </button>
+                    </div>
+                </div>
+                <div class="table-wrap" id="ordersTableWrap"></div>
+            </div>
+        </div>
+
+        <!--products tab-->
+        <div class="tab-content" id="tab-products">
+            <div class="panel">
+                <div class="panel-header">
+                    <h3>Products Inventory</h3>
+                    <button class="btn-add" id="addProductBtn"><i class="fas fa-plus"></i> Add Product</button>
+                </div>
+                <div class="table-wrap" id="productsTableWrap"></div>
+            </div>
+        </div>
+
+        <!--customers tab-->
+        <div class="tab-content" id="tab-customers">
+            <div class="panel">
+                <div class="panel-header">
+                    <h3>Customer Directory</h3>
+                </div>
+                <div class="table-wrap" id="customersTableWrap"></div>
+            </div>
+        </div>
+
+        <!--analytics tab-->
+        <div class="tab-content" id="tab-analytics">
+            <div class="kpi-grid" id="analyticsKpiGrid"></div>
+            <div class="charts-row">
+                <div class="chart-card wide">
+                    <div class="chart-card-header">
+                        <h3><i class="fas fa-shopping-bag"></i> Orders by Payment Method</h3>
+                    </div>
+                    <canvas id="paymentChart" height="120"></canvas>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-card-header">
+                        <h3><i class="fas fa-clock"></i> Orders by Delivery Time</h3>
+                    </div>
+                    <canvas id="deliveryChart" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!--settings tab-->
+        <div class="tab-content" id="tab-settings">
+            <div class="settings-grid">
+                <div class="panel">
+                    <div class="panel-header"><h3>Store Information</h3></div>
+                    <div class="panel-body">
+                        <div class="setting-row">
+                            <label>Store Name</label>
+                            <input type="text" value="adoma Supermarket" class="setting-input">
+                        </div>
+                        <div class="setting-row">
+                            <label>Phone</label>
+                            <input type="text" value="+233 24 546 6780" class="setting-input">
+                        </div>
+                        <div class="setting-row">
+                            <label>Email</label>
+                            <input type="email" value="hello@adomasupermaarket.com" class="setting-input">
+                        </div>
+                        <div class="setting-row">
+                            <label>Address</label>
+                            <input type="text" value="123 Market Street, Accra" class="setting-input">
+                        </div>
+                        <button class="btn-save">Save Changes</button>
+                    </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-header"><h3>Delivery Settings</h3></div>
+                    <div class="panel-body">
+                        <div class="setting-row">
+                            <label>Free Delivery Threshold (GH₵)</label>
+                            <input type="number" value="50" class="setting-input">
+                        </div>
+                        <div class="setting-row">
+                            <label>Standard Delivery Fee (GH₵)</label>
+                            <input type="number" value="15" class="setting-input">
+                        </div>
+                        <div class="setting-row">
+                            <label>Est. Delivery Days</label>
+                            <input type="number" value="1" min="1" max="7" class="setting-input">
+                        </div>
+                        <button class="btn-save">Save Changes</button>
+                    </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-header"><h3>Data Management</h3></div>
+                    <div class="panel-body">
+                        <p style="color: #666; font-size: 0.9rem; margin-bottom: 1rem;">Manage your store data stored locally.</p>
+                        <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                            <button class="btn-danger-outline" id="clearOrdersBtn">
+                                <i class="fas fa-trash"></i> Clear All Orders
+                            </button>
+                            <button class="btn-danger-outline" id="clearAllDataBtn">
+                                <i class="fas fa-database"></i> Clear All Store Data
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!--order detail modal-->
+    <div class="modal-overlay" id="orderDetailOverlay"></div>
+    <div class="modal" id="orderDetailModal" role="dialog" aria-modal="true" aria-label="Order Details">
+        <div class="modal-header">
+            <h3 id="orderDetailTitle">Order Details</h3>
+            <button class="modal-close" id="closeOrderDetail"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body" id="orderDetailBody"></div>
+    </div>
+
+    <!--product modal-->
+    <div class="modal-overlay" id="productModalOverlay"></div>
+    <div class="modal" id="productModal" role="dialog" aria-modal="true" aria-label="Add/Edit Product">
+        <div class="modal-header">
+            <h3 id="productModalTitle">Add Product</h3>
+            <button class="modal-close" id="closeProductModal"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body" id="productModalBody">
+            <form id="productForm">
+                <div class="form-row-2">
+                    <div class="form-grp">
+                        <label>Product Name *</label>
+                        <input type="text" id="pName" required placeholder="e.g Fresh Mangoes (1kg)">
+                    </div>
+                    <div class="form-grp">
+                        <label>Category *</label>
+                        <select id="pCategory">
+                            <option value="Fresh Produce">Fresh Produce</option>
+                            <option value="Dairy & Eggs">Dairy & Eggs</option>
+                            <option value="Bakery">Bakery</option>
+                            <option value="Meat & Poultry">Meat & Poultry</option>
+                            <option value="Beverages">Beverages</option>
+                            <option value="Cereals">Cereals</option>
+                            <option value="Snacks">Snacks</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row-2">
+                    <div class="form-grp">
+                        <label>Price (GH₵) *</label>
+                        <input type="number" id="pPrice" step="0.01" min="0" required placeholder="0.00">
+                    </div>
+                    <div class="form-grp">
+                        <label>Old Price (GH₵)</label>
+                        <input type="number" id="pOldPrice" step="0.01" min="0" placeholder="Leave blank if no discount">
+                    </div>
+                </div>
+                <div class="form-row-2">
+                    <div class="form-grp">
+                        <label>Badge</label>
+                        <select id="pBadge">
+                            <option value="">None</option>
+                            <option value="Fresh">Fresh</option>
+                            <option value="Sale">Sale</option>
+                            <option value="Best Seller">Best Seller</option>
+                            <option value="Organic">Organic</option>
+                            <option value="New">New</option>
+                        </select>
+                    </div>
+                    <div class="form-grp">
+                        <label>Image URL</label>
+                        <input type="text" id="pImage" placeholder="Paste image URL">
+                    </div>
+                </div>
+                <button type="submit" class="btn-save" style="width: 100%; margin-top: 1rem;">
+                    <i class="fas fa-save"></i> Save Product
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

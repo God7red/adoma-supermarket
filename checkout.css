@@ -1,0 +1,681 @@
+/* checkout.css
+   Styles specific to the checkout page.
+   styles.css (the main stylesheet) is loaded first and provides the
+   CSS reset, variables, fonts, and scrollbar styles.
+*/
+
+/* ─── Nav overrides for checkout page ─────────────────────────────────────── */
+.nav-bar {
+    background: var(--navy);
+    height: var(--nav-height);
+    display: flex;
+    align-items: center;
+    box-shadow: var(--shadow-md);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* FIX: logo now stacks ADOMA over SUPERMARKET cleanly */
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--orange);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.logo span {
+    color: white;
+    font-size: 0.55rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    margin-left: 2px;
+}
+
+.back-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+.back-link i {
+    flex-shrink: 0;
+}
+
+.back-link:hover {
+    color: var(--orange);
+}
+
+/* ─── Breadcrumb ────────────────────────────────────────────────────────────── */
+.breadcrumb {
+    background: white;
+    border-bottom: 1px solid #eee;
+}
+
+.breadcrumb-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.9rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.breadcrumb-inner a {
+    color: var(--navy);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.breadcrumb-inner a:hover {
+    color: var(--orange);
+}
+
+.breadcrumb-inner i {
+    font-size: 0.7rem;
+}
+
+/* ─── Progress bar ──────────────────────────────────────────────────────────── */
+.progress-bar {
+    background: white;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid #eee;
+}
+
+.progress-inner {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    flex: 1;
+    position: relative;
+}
+
+.step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 18px;
+    left: 60%;
+    width: 80%;
+    height: 2px;
+    background: #e0e0e0;
+    z-index: 0;
+}
+
+.step.completed:not(:last-child)::after {
+    background: var(--orange);
+}
+
+.step-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    border: 2px solid #e0e0e0;
+    background: white;
+    color: #aaa;
+    position: relative;
+    z-index: 1;
+    transition: var(--transition);
+}
+
+.step.completed .step-circle {
+    background: var(--orange);
+    border-color: var(--orange);
+    color: white;
+}
+
+.step.active .step-circle {
+    border-color: var(--navy);
+    background: var(--navy);
+    color: white;
+}
+
+.step-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #aaa;
+    text-align: center;
+}
+
+.step.active .step-label,
+.step.completed .step-label {
+    color: var(--navy);
+    font-weight: 600;
+}
+
+/* ─── Layout ────────────────────────────────────────────────────────────────── */
+.checkout-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 2rem;
+    align-items: start;
+}
+
+/* ─── Form card ─────────────────────────────────────────────────────────────── */
+.form-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+.form-card-header {
+    background: linear-gradient(135deg, var(--navy) 0%, #1a2a7a 100%);
+    color: white;
+    padding: 1.4rem 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.form-card-header h2 {
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.form-card-header i {
+    font-size: 1.1rem;
+    color: var(--orange);
+}
+
+.form-card-body {
+    padding: 1.8rem;
+}
+
+.section-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.5rem 0 1.2rem;
+}
+
+.section-divider span {
+    font-weight: 600;
+    color: var(--navy);
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+
+.section-divider::before,
+.section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #eee;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1.1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.45rem;
+    font-weight: 500;
+    color: var(--navy);
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    font-size: 0.92rem;
+    transition: var(--transition);
+    font-family: inherit;
+    background: white;
+    color: var(--dark-gray);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--orange);
+    box-shadow: 0 0 0 3px rgba(246,128,72,0.1);
+}
+
+.form-group input.error,
+.form-group select.error,
+.form-group textarea.error {
+    border-color: var(--danger);
+}
+
+.field-error {
+    color: var(--danger);
+    font-size: 0.78rem;
+    margin-top: 0.3rem;
+    display: none;
+}
+
+.field-error.visible {
+    display: block;
+}
+
+/* ─── Payment methods ───────────────────────────────────────────────────────── */
+.payment-methods {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.payment-method {
+    border: 2px solid #eee;
+    border-radius: 12px;
+    padding: 1rem 0.8rem;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.payment-method:hover {
+    border-color: var(--orange);
+    background: rgba(246,128,72,0.04);
+}
+
+.payment-method.selected {
+    border-color: var(--orange);
+    background: rgba(246,128,72,0.08);
+}
+
+.payment-method i {
+    font-size: 1.6rem;
+    color: var(--navy);
+    margin-bottom: 0.4rem;
+    display: block;
+}
+
+.payment-method.selected i {
+    color: var(--orange);
+}
+
+.payment-method span {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--dark-gray);
+}
+
+/* ─── Order summary card ────────────────────────────────────────────────────── */
+.order-summary-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: calc(var(--nav-height) + 1.5rem);
+    overflow: hidden;
+}
+
+.order-summary-header {
+    background: linear-gradient(135deg, var(--navy) 0%, #1a2a7a 100%);
+    color: white;
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.order-summary-header h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.order-summary-header i {
+    color: var(--orange);
+}
+
+.order-items {
+    padding: 1.2rem 1.5rem;
+    max-height: 320px;
+    overflow-y: auto;
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.order-item:last-child {
+    border-bottom: none;
+}
+
+.order-item-img {
+    width: 52px;
+    height: 52px;
+    border-radius: 10px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.order-item-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.order-item-name {
+    font-weight: 600;
+    color: var(--navy);
+    font-size: 0.88rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.order-item-qty {
+    color: #888;
+    font-size: 0.8rem;
+    margin-top: 2px;
+}
+
+.order-item-price {
+    font-weight: 700;
+    color: var(--navy);
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+/* ─── Totals ────────────────────────────────────────────────────────────────── */
+.order-totals {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #eee;
+    background: #fafafa;
+}
+
+.totals-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin-bottom: 0.6rem;
+    color: var(--dark-gray);
+}
+
+.totals-row.grand-total {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--navy);
+    border-top: 2px dashed #ddd;
+    padding-top: 0.8rem;
+    margin-top: 0.4rem;
+}
+
+.free-delivery-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: rgba(76,175,80,0.1);
+    color: var(--success);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+}
+
+/* ─── Trust badges ──────────────────────────────────────────────────────────── */
+.trust-badges {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: #666;
+    font-size: 0.8rem;
+}
+
+.trust-badge i {
+    color: var(--success);
+    width: 16px;
+}
+
+/* ─── Place order button ────────────────────────────────────────────────────── */
+.submit-section {
+    padding: 1.2rem 1.5rem;
+    border-top: 1px solid #eee;
+}
+
+.btn-place-order {
+    width: 100%;
+    padding: 1rem;
+    background: var(--orange);
+    color: var(--navy);
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    font-family: inherit;
+}
+
+.btn-place-order:hover {
+    background: var(--navy);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(13,26,99,0.25);
+}
+
+.btn-place-order:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ─── Empty cart state ──────────────────────────────────────────────────────── */
+.empty-checkout {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: white;
+    border-radius: 20px;
+    box-shadow: var(--shadow-sm);
+}
+
+.empty-checkout i {
+    font-size: 5rem;
+    color: #ddd;
+    margin-bottom: 1.5rem;
+    display: block;
+}
+
+.empty-checkout h2 {
+    color: var(--navy);
+    margin-bottom: 0.8rem;
+}
+
+.empty-checkout p {
+    color: #888;
+    margin-bottom: 2rem;
+}
+
+.btn-go-shop {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--orange);
+    color: var(--navy);
+    padding: 0.9rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: var(--transition);
+}
+
+.btn-go-shop:hover {
+    background: var(--navy);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* ─── Success screen ────────────────────────────────────────────────────────── */
+.success-screen {
+    display: none;
+    text-align: center;
+    padding: 3rem 2rem;
+    background: white;
+    border-radius: 20px;
+    box-shadow: var(--shadow-sm);
+}
+
+.success-screen.visible {
+    display: block;
+}
+
+.success-icon-wrap {
+    width: 90px;
+    height: 90px;
+    background: rgba(76,175,80,0.12);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.success-icon-wrap i {
+    font-size: 3rem;
+    color: var(--success);
+}
+
+.success-screen h2 {
+    color: var(--navy);
+    font-size: 1.5rem;
+    margin-bottom: 0.6rem;
+}
+
+.success-screen p {
+    color: #666;
+    margin-bottom: 0.4rem;
+}
+
+.order-number-badge {
+    display: inline-block;
+    background: var(--cream);
+    border: 2px solid var(--orange);
+    color: var(--navy);
+    font-weight: 700;
+    padding: 0.4rem 1.2rem;
+    border-radius: 30px;
+    font-size: 1rem;
+    margin: 0.8rem 0 1.5rem;
+}
+
+.success-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--navy);
+    color: white;
+    padding: 0.8rem 1.6rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+
+.btn-secondary:hover {
+    background: var(--orange);
+    color: var(--navy);
+    transform: translateY(-2px);
+}
+
+/* ─── Responsive ────────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+    .checkout-wrapper {
+        grid-template-columns: 1fr;
+    }
+    .order-summary-card {
+        position: static;
+        order: -1;
+    }
+    .order-items {
+        max-height: 200px;
+    }
+}
+
+@media (max-width: 560px) {
+    .checkout-wrapper {
+        padding: 1.5rem 1rem;
+    }
+    .form-card-body {
+        padding: 1.2rem;
+    }
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    .payment-methods {
+        grid-template-columns: 1fr;
+    }
+    .progress-bar {
+        padding: 1rem;
+    }
+}
