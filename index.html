@@ -22,7 +22,7 @@
 
             <div class="nav-links">
                 <a href="#">Home</a>
-                <a href="#products-section">Products</a>
+                <a href="products.html">Products</a>
                 <a href="#promo-section">Deals</a>
                 <a href="#footer">Contact</a>
             </div>
@@ -32,10 +32,11 @@
                     <i class="fas fa-shopping-cart" aria-hidden="true"></i>
                     <span class="badge" id="cartCount" aria-label="Cart items">0</span>
                 </div>
-                <div class="icon-wrapper" role="button" tabindex="0" aria-label="Wishlist">
+                <div class="icon-wrapper" id="wishlistIcon" role="button" tabindex="0" aria-label="Open wishlist">
                     <i class="fas fa-heart" aria-hidden="true"></i>
+                    <span class="badge" id="wishlistCount" aria-label="Wishlist items">0</span>
                 </div>
-                <div class="icon-wrapper" role="button" tabindex="0" aria-label="Account">
+                <div class="icon-wrapper" id="accountIcon" role="button" tabindex="0" aria-label="Account" onclick="window.location.href='user_account.html'" style="cursor:pointer;">
                     <i class="fas fa-user"></i>
                 </div>
             </div>
@@ -49,13 +50,13 @@
     <!--mobile menu-->
     <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
         <a href="#"><i class="fas fa-home" aria-hidden="true"></i> Home</a>
-        <a href="#products-section"><i class="fas fa-box" aria-hidden="true"></i> Products</a>
+        <a href="products.html"><i class="fas fa-box" aria-hidden="true"></i> Products</a>
         <a href="#promo-section"><i class="fas fa-tag" aria-hidden="true"></i> Deals</a>
         <a href="#"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a>
         <div class="mobile-divider"></div>
         <a href="#" id="mobileCartLink"><i class="fas fa-shopping-cart" aria-hidden="true"></i> cart <span class="badge-mobile" id="mobileCartCount">0</span></a>
-        <a href="#"><i class="fas fa-heart" aria-hidden="true"></i> Wishlist</a>
-        <a href="#"><i class="fas fa-user" aria-hidden="true"></i> Account</a>
+        <a href="#" id="mobileWishlistLink"><i class="fas fa-heart" aria-hidden="true"></i> Wishlist <span class="badge-mobile" id="mobileWishlistCount">0</span></a>
+        <a href="user_account.html"><i class="fas fa-user" aria-hidden="true"></i> Account</a>
     </div>
 
     <section class="hero">
@@ -63,7 +64,7 @@
             <h1 class="animate__animated animate__fadeInUp">The Family Supermarket</h1>
             <p class="animate__animated animate__fadeInUp animate__delay-1s">Discover the finest quality products for your family, delivered with love</p>
             <div class="hero-buttons animate__animated animate__fadeInUp animate__delay-2s">
-                <a href="#products-section" class="btn btn-primary">
+                <a href="products.html" class="btn btn-primary">
                     <i class="fas fa-shopping-bag" aria-hidden="true"></i>
                     Shop Now
                 </a>
@@ -77,12 +78,17 @@
                 <h2 class="section-title" style="margin-bottom: 0;">Featured Products</h2>
                 <p class="section-subtitle" style="text-align: left;">Hand-picked for you</p>
             </div>
-            <div class="filter-buttons" role="tablist" aria-label="Filter products">
+            <div style="display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;">
+                <a href="products.html" style="display:inline-flex;align-items:center;gap:0.4rem;background:var(--navy);color:white;padding:0.55rem 1.2rem;border-radius:50px;text-decoration:none;font-size:0.88rem;font-weight:600;transition:all 0.3s ease;" onmouseover="this.style.background='var(--orange)';this.style.color='var(--navy)';" onmouseout="this.style.background='var(--navy)';this.style.color='white';">
+                    View All <i class="fas fa-arrow-right" style="font-size:0.75rem;"></i>
+                </a>
+                <div class="filter-buttons" role="tablist" aria-label="Filter products">
                 <button class="filter-btn active" role="tab" aria-selected="true">All</button>
                 <button class="filter-btn" role="tab" aria-selected="false">Fresh</button>
                 <button class="filter-btn" role="tab" aria-selected="false">On Sale</button>
                 <button class="filter-btn" role="tab" aria-selected="false">Best Sellers</button>
                 <button class="filter-btn" role="tab" aria-selected="false">Beverages</button>
+            </div>
             </div>
         </div>
 
@@ -253,6 +259,16 @@
             <p id="footerCopyright"></p>
         </div>
     </footer>
+
+    <!--wishlist modal-->
+    <div class="cart-modal-overlay" id="wishlistOverlay" aria-hidden="true"></div>
+    <div class="cart-modal" id="wishlistModal" role="dialog" aria-modal="true" aria-label="Wishlist">
+        <div class="cart-modal-header">
+            <h3><i class="fas fa-heart" aria-hidden="true"></i> Your Wishlist (<span id="wishlistItemCount">0</span>)</h3>
+            <button class="close-cart" id="closeWishlistBtn" aria-label="Close wishlist"><i class="fas fa-times" aria-hidden="true"></i></button>
+        </div>
+        <div class="cart-items" id="wishlistItems"></div>
+    </div>
 
     <!--cart modal-->
     <div class="cart-modal-overlay" id="cartOverlay" aria-hidden="true"></div>

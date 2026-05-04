@@ -13,7 +13,7 @@ function saveOrders(orders) {
     } catch(e) {}
 }
 
-// Seed demo data if no orders exist
+// demo data if no orders exist
 function seedDemoData() {
     const existing = getOrders();
     if (existing.length > 0) return;
@@ -249,7 +249,7 @@ function renderCategoryChart(orders) {
         });
     });
 
-    // Demo data if empty
+    // Demo data if charts is empty
     if (Object.keys(cats).length === 0) {
         cats['Fresh Produce'] = 12; cats['Dairy & Eggs'] = 8; cats['Beverages'] = 10;
         cats['Meat & Poultry'] = 6; cats['Bakery'] = 4; cats['Cereals'] = 5;
@@ -287,7 +287,7 @@ function getCategoryById(id) {
     return map[id] || 'Other';
 }
 
-//ORDERS TABLE
+//orders table
 function renderOrdersTable() {
     const statusFilter = document.getElementById('orderStatusFilter')?.value || 'all';
     let orders = getOrders();
@@ -675,7 +675,7 @@ function closeModal(modalId, overlayId) {
     document.body.style.overflow = '';
 }
 
-//EXPORT CSV
+//export spreadsheet
 function exportOrdersCSV() {
     const orders = getOrders();
     const headers = ['Order #','Date','Customer Name','Email','Phone','City','Payment','Items','Subtotal','Delivery Fee','Total','Status'];
@@ -702,7 +702,7 @@ function exportOrdersCSV() {
     a.click(); URL.revokeObjectURL(url);
 }
 
-//UTILITIES 
+//utilities
 function escapeHTML(str) {
     return String(str || '')
         .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
@@ -724,8 +724,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     seedDemoData();
 
-    // Date in topbar
-    const dateEl = document.getElementById('topbarDate');
+    // Date in top-bar
+    const dateEl = document.getElementById('top-barDate');
     if (dateEl) {
         dateEl.textContent = new Date().toLocaleDateString('en-GB', { weekday:'short', day:'2-digit', month:'short', year:'numeric' });
     }
@@ -822,7 +822,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Settings: clear orders
+    // Settings to clear orders
     document.getElementById('clearOrdersBtn')?.addEventListener('click', function() {
         if (confirm('This will delete ALL orders. Continue?')) {
             localStorage.removeItem('adomaOrders');
@@ -859,7 +859,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.head.appendChild(style);
 
     // Store base products reference for admin products table
-    // We load products from localStorage if available
+    // load products from localStorage if some is available
     window._baseProducts = [
         {id:1,name:'Organic Bananas',category:'Fresh Produce',price:9.99,oldPrice:12.99,rating:4.5,reviews:128,image:'images/banana.jpg',badge:'Sale'},
         {id:2,name:'Farm Fresh Eggs (Tray of 30)',category:'Dairy & Eggs',price:24.99,oldPrice:null,rating:4.8,reviews:256,image:'images/eggs.jpg',badge:'Best Seller'},

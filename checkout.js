@@ -1,13 +1,9 @@
-// checkout.js
 // NOTE: script.js is loaded first and provides the shared `cart` array and
-// getCartTotals(), escapeHTML(), and saveCart() helpers.
-// This file handles only the checkout page logic.
+// getCartTotals(), escapeHTML(), and saveCart() helpers
 
-// ─── Currency ────────────────────────────────────────────────────────────────
-// FIX: was "$" throughout — changed to GH₵ to match Ghanaian context
 const CURRENCY = 'GH₵';
 
-// ─── Render order summary ────────────────────────────────────────────────────
+//give order summary
 function renderSummary() {
     const orderItemsEl  = document.getElementById('orderItems');
     const orderTotalsEl = document.getElementById('orderTotals');
@@ -56,7 +52,7 @@ function renderSummary() {
     `;
 }
 
-// ─── Form validation ─────────────────────────────────────────────────────────
+//for validating form
 function validateField(id, errorId, testFn) {
     const el  = document.getElementById(id);
     const err = document.getElementById(errorId);
@@ -77,7 +73,7 @@ function validateForm() {
     return v1 && v2 && v3 && v4 && v5;
 }
 
-// ─── Place order ─────────────────────────────────────────────────────────────
+//place order
 function placeOrder() {
     if (!validateForm()) return;
 
@@ -125,10 +121,10 @@ function placeOrder() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ─── Init ─────────────────────────────────────────────────────────────────────
+//Init
 document.addEventListener('DOMContentLoaded', function () {
 
-    // Show empty state or render summary
+    // Show empty state or give summary
     if (cart.length === 0) {
         document.getElementById('emptyState').style.display       = 'block';
         document.getElementById('checkoutFormCard').style.display = 'none';

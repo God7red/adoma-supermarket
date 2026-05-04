@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="products.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <title>All Products | Adoma Supermarket</title>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav class="nav-bar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="index.html" class="logo">adoma<span>supermarket</span></a>
+
+            <div class="search-container" id="searchContainer">
+                <input type="text" id="searchInput" placeholder="Search products..." autocomplete="off" aria-label="Search products" aria-expanded="false" aria-controls="searchDropdown">
+                <i class="fas fa-search" aria-hidden="true"></i>
+                <div class="search-results-dropdown" id="searchDropdown" role="listbox" aria-label="Search results"></div>
+            </div>
+
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="products.html" class="nav-active">Products</a>
+                <a href="index.html#promo-section">Deals</a>
+                <a href="index.html#footer">Contact</a>
+            </div>
+
+            <div class="nav-icons">
+                <div class="icon-wrapper" id="cartIcon" role="button" tabindex="0" aria-label="Open shopping cart">
+                    <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                    <span class="badge" id="cartCount" aria-label="Cart items">0</span>
+                </div>
+                <div class="icon-wrapper" id="wishlistIcon" role="button" tabindex="0" aria-label="Open wishlist">
+                    <i class="fas fa-heart" aria-hidden="true"></i>
+                    <span class="badge" id="wishlistCount" aria-label="Wishlist items">0</span>
+                </div>
+                <div class="icon-wrapper" id="accountIcon" role="button" tabindex="0" aria-label="Account" onclick="window.location.href='user_account.html'" style="cursor:pointer;">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+        <a href="index.html"><i class="fas fa-home" aria-hidden="true"></i> Home</a>
+        <a href="products.html"><i class="fas fa-box" aria-hidden="true"></i> Products</a>
+        <a href="index.html#promo-section"><i class="fas fa-tag" aria-hidden="true"></i> Deals</a>
+        <a href="index.html#footer"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a>
+        <div class="mobile-divider"></div>
+        <a href="#" id="mobileCartLink"><i class="fas fa-shopping-cart" aria-hidden="true"></i> Cart <span class="badge-mobile" id="mobileCartCount">0</span></a>
+        <a href="#" id="mobileWishlistLink"><i class="fas fa-heart" aria-hidden="true"></i> Wishlist <span class="badge-mobile" id="mobileWishlistCount">0</span></a>
+        <a href="user_account.html"><i class="fas fa-user" aria-hidden="true"></i> Account</a>
+    </div>
+
+    <!-- PAGE HERO -->
+    <div class="page-hero">
+        <div class="page-hero-inner">
+            <div class="breadcrumb-nav">
+                <a href="index.html">Home</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>All Products</span>
+            </div>
+            <h1>All Products</h1>
+            <p>Fresh, quality groceries for your family — all in one place</p>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="shop-layout">
+
+        <!-- SIDEBAR FILTERS -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h3><i class="fas fa-sliders-h"></i> Filters</h3>
+                <button class="clear-filters-btn" id="clearFilters">Clear All</button>
+            </div>
+
+            <!-- Category filter -->
+            <div class="filter-section">
+                <h4 class="filter-title">Category</h4>
+                <div class="filter-options" id="categoryFilters">
+                    <label class="filter-option">
+                        <input type="radio" name="category" value="All" checked> <span>All Categories</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="radio" name="category" value="Fresh Produce"> <span>Fresh Produce</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="radio" name="category" value="Dairy & Eggs"> <span>Dairy &amp; Eggs</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="radio" name="category" value="Bakery"> <span>Bakery</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="radio" name="category" value="Meat & Poultry"> <span>Meat &amp; Poultry</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="radio" name="category" value="Beverages"> <span>Beverages</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="radio" name="category" value="Cereals"> <span>Cereals</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="radio" name="category" value="Snacks"> <span>Snacks</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="radio" name="category" value="Household"> <span>Household</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Price Range -->
+            <div class="filter-section">
+                <h4 class="filter-title">Price Range</h4>
+                <div class="price-range-wrap">
+                    <input type="range" id="priceRange" min="0" max="100" value="100" class="price-slider">
+                    <div class="price-labels">
+                        <span>GH₵0</span>
+                        <span id="priceRangeLabel">Up to GH₵100</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sort -->
+            <div class="filter-section">
+                <h4 class="filter-title">Sort By</h4>
+                <select class="sort-select" id="sortSelect">
+                    <option value="default">Featured</option>
+                    <option value="price-asc">Price: Low to High</option>
+                    <option value="price-desc">Price: High to Low</option>
+                    <option value="rating">Highest Rated</option>
+                    <option value="name">Name A–Z</option>
+                </select>
+            </div>
+
+            <!-- Badge filter -->
+            <div class="filter-section">
+                <h4 class="filter-title">Product Type</h4>
+                <div class="tag-filters" id="tagFilters">
+                    <button class="tag-btn active" data-tag="All">All</button>
+                    <button class="tag-btn" data-tag="Sale">On Sale</button>
+                    <button class="tag-btn" data-tag="Fresh">Fresh</button>
+                    <button class="tag-btn" data-tag="Organic">Organic</button>
+                    <button class="tag-btn" data-tag="Best Seller">Best Sellers</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- PRODUCT AREA -->
+        <main class="products-main">
+            <!-- Toolbar -->
+            <div class="products-toolbar">
+                <div class="results-info">
+                    <span id="resultCount">0</span> products found
+                </div>
+                <div class="toolbar-right">
+                    <button class="mobile-filter-toggle" id="mobileFilterToggle">
+                        <i class="fas fa-sliders-h"></i> Filters
+                    </button>
+                    <div class="view-toggle">
+                        <button class="view-btn active" id="gridViewBtn" aria-label="Grid view"><i class="fas fa-th"></i></button>
+                        <button class="view-btn" id="listViewBtn" aria-label="List view"><i class="fas fa-list"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grid -->
+            <div class="products-grid" id="productsGrid"></div>
+
+            <!-- No results -->
+            <div class="no-results-state" id="noResults" style="display:none;">
+                <i class="fas fa-box-open"></i>
+                <h3>No products found</h3>
+                <p>Try adjusting your filters or search terms</p>
+                <button class="btn-reset" id="resetBtn">Reset Filters</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODALS (Cart, Wishlist) -->
+    <div class="cart-modal-overlay" id="wishlistOverlay" aria-hidden="true"></div>
+    <div class="cart-modal" id="wishlistModal" role="dialog" aria-modal="true" aria-label="Wishlist">
+        <div class="cart-modal-header">
+            <h3><i class="fas fa-heart" aria-hidden="true"></i> Your Wishlist (<span id="wishlistItemCount">0</span>)</h3>
+            <button class="close-cart" id="closeWishlistBtn" aria-label="Close wishlist"><i class="fas fa-times" aria-hidden="true"></i></button>
+        </div>
+        <div class="cart-items" id="wishlistItems"></div>
+    </div>
+
+    <div class="cart-modal-overlay" id="cartOverlay" aria-hidden="true"></div>
+    <div class="cart-modal" id="cartModal" role="dialog" aria-modal="true" aria-label="Shopping Cart">
+        <div class="cart-modal-header">
+            <h3><i class="fas fa-shopping-cart" aria-hidden="true"></i> Your Cart (<span id="cartItemCount">0</span>)</h3>
+            <button class="close-cart" id="closeCartBtn" aria-label="Close cart"><i class="fas fa-times" aria-hidden="true"></i></button>
+        </div>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-summary" id="cartSummary"></div>
+    </div>
+
+    <!-- Cart notification -->
+    <div class="cart-notification" id="cartNotification" role="status" aria-live="polite">
+        <i class="fas fa-check-circle" aria-hidden="true"></i>
+        <span>Product added to cart</span>
+    </div>
+
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
+    <script src="script.js"></script>
+    <script src="products.js"></script>
+</body>
+</html>

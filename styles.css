@@ -29,7 +29,7 @@ body {
     scroll-behavior: smooth;
 }
 
-/* ===== CUSTOM SCROLLBAR ===== */
+/* custom scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -1074,7 +1074,6 @@ body {
     font-size: 0.88rem;
 }
 
-/* ===== CART NOTIFICATION — FIXED ===== */
 .cart-notification {
     position: fixed;
     bottom: 20px;
@@ -1094,7 +1093,6 @@ body {
     font-weight: 500;
 }
 
-/* FIX: was translateX(0) — must match the Y axis used above */
 .cart-notification.show {
     transform: translateY(0);
 }
@@ -1133,7 +1131,6 @@ body {
     transform: translateY(-4px);
 }
 
-/*CART MODAL*/
 .cart-modal-overlay{
     position: fixed;
     inset: 0;
@@ -1388,7 +1385,6 @@ body {
     color: #ddd;
 }
 
-/*CHECKOUT MODAL*/
 .checkout-modal{
     position: fixed;
     top: 50%; left: 50%;
@@ -1531,7 +1527,6 @@ body {
     color: white;
 }
 
-/*SUCCESS MODAL*/
 .success-modal{
     position: fixed;
     top: 50%; left: 50%;
@@ -1584,7 +1579,7 @@ body {
     transform: translateY(-2px);
 }
 
-/*RESPONSIVE*/
+/*responsiveness*/
 @media (max-width: 1024px) {
     .nav-links { display: none; }
     .hamburger { display: block; }
@@ -1653,4 +1648,12 @@ body {
 @media (max-width: 380px) {
     .logo { height: 30px; }
     .search-container { max-width: 120px; }
+}
+/* Wishlist active state on overlay button */
+.overlay-btn.wishlisted {
+    background: var(--danger);
+    color: var(--white);
+}
+.overlay-btn.wishlisted i {
+    color: var(--white);
 }

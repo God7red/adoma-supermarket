@@ -7,7 +7,7 @@ const products = [
         oldPrice: 12.99,
         rating: 4.5,
         reviews: 128,
-        image: 'images/banana.jpg',
+        image: 'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         badge: 'Sale'
     },
     {
@@ -18,7 +18,7 @@ const products = [
         oldPrice: null,
         rating: 4.8,
         reviews: 256,
-        image: 'images/eggs.jpg',
+        image: 'https://plus.unsplash.com/premium_photo-1664305037196-003c3164a78c?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         badge: 'Best Seller'
     },
     {
@@ -62,7 +62,7 @@ const products = [
         oldPrice: 11.99,
         rating: 4.7,
         reviews: 145,
-        image: 'images/sadia.jpg',
+        image: 'https://fairwayghana.com/image/cache/catalog/2024UPLOADS/SADIA%20CHICKEN%20SAUSAGE%20340G-500x500.jpg',
         badge: 'Fresh'
     },
     {
@@ -73,7 +73,7 @@ const products = [
         oldPrice: 11.99,
         rating: 4.7,
         reviews: 135,
-        image: 'images/cere.jpg',
+        image: 'https://gh.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/38/0300141/1.jpg?7025',
         badge: 'Cereals'
     }
 ];
@@ -90,6 +90,119 @@ function escapeHTML(str) {
 
 // CART STATE
 let cart = [];
+
+// WISHLIST STATE
+let wishlist = [];
+
+function loadWishlist() {
+    try {
+        const saved = localStorage.getItem('adomaWishlist');
+        if (saved) wishlist = JSON.parse(saved);
+    } catch (e) {
+        console.warn('Could not load wishlist from storage:', e);
+        wishlist = [];
+    }
+}
+
+function saveWishlist() {
+    try {
+        localStorage.setItem('adomaWishlist', JSON.stringify(wishlist));
+    } catch (e) {
+        console.warn('Could not save wishlist to storage:', e);
+    }
+}
+
+window.toggleWishlist = function(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+
+    const index = wishlist.findIndex(item => item.id === productId);
+    let added;
+    if (index > -1) {
+        wishlist.splice(index, 1);
+        added = false;
+    } else {
+        wishlist.push({ id: product.id, name: product.name, price: product.price, image: product.image });
+        added = true;
+    }
+
+    saveWishlist();
+    updateWishlistCount();
+    // Re-render products to update heart icon state
+    displayProducts(getActiveFilter(), document.getElementById('searchInput') ? document.getElementById('searchInput').value.trim().toLowerCase() : '');
+
+    // Show notification
+    const note = document.getElementById('cartNotification');
+    if (note) {
+        const messageSpan = note.querySelector('span');
+        const originalMessage = messageSpan.textContent;
+        messageSpan.textContent = added ? `${product.name} added to wishlist!` : `${product.name} removed from wishlist!`;
+        note.classList.add('show');
+        setTimeout(() => {
+            note.classList.remove('show');
+            setTimeout(() => { messageSpan.textContent = originalMessage; }, 300);
+        }, 2200);
+    }
+};
+
+function updateWishlistCount() {
+    const badge = document.getElementById('wishlistCount');
+    if (badge) badge.textContent = wishlist.length;
+    const mobileBadge = document.getElementById('mobileWishlistCount');
+    if (mobileBadge) mobileBadge.textContent = wishlist.length;
+}
+
+function openWishlistModal() {
+    const modal = document.getElementById('wishlistModal');
+    const overlay = document.getElementById('wishlistOverlay');
+    if (modal) modal.classList.add('active');
+    if (overlay) overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    renderWishlistModal();
+}
+
+function closeWishlistModal() {
+    const modal = document.getElementById('wishlistModal');
+    const overlay = document.getElementById('wishlistOverlay');
+    if (modal) modal.classList.remove('active');
+    if (overlay) overlay.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function renderWishlistModal() {
+    const el = document.getElementById('wishlistItems');
+    const countEl = document.getElementById('wishlistItemCount');
+    if (countEl) countEl.textContent = wishlist.length;
+    if (!el) return;
+    if (wishlist.length === 0) {
+        el.innerHTML = `
+            <div class="empty-cart">
+                <i class="fas fa-heart" aria-hidden="true"></i>
+                <p>Your wishlist is empty</p>
+                <small>Click the heart on any product to save it!</small>
+            </div>`;
+        return;
+    }
+    el.innerHTML = wishlist.map(item => {
+        const safeName = escapeHTML(item.name);
+        const safeImage = escapeHTML(item.image);
+        return `
+            <div class="cart-item">
+                <img src="${safeImage}" alt="${safeName}" class="cart-item-image" loading="lazy"
+                    onerror="this.src='https://via.placeholder.com/60?text=Item'">
+                <div class="cart-item-details">
+                    <div class="cart-item-title">${safeName}</div>
+                    <div class="cart-item-price">GH₵${item.price.toFixed(2)}</div>
+                </div>
+                <button class="btn-cart btn-checkout" style="padding:0.4rem 0.8rem;font-size:0.8rem;" onclick="addToCart(${item.id}); closeWishlistModal();">
+                    <i class="fas fa-cart-plus"></i> Add to Cart
+                </button>
+                <div class="remove-item" onclick="toggleWishlist(${item.id})" role="button" tabindex="0" aria-label="Remove ${safeName} from wishlist">
+                    <i class="fas fa-trash" aria-hidden="true"></i>
+                </div>
+            </div>`;
+    }).join('');
+}
 
 // localStorage access
 function loadCart() {
@@ -270,11 +383,17 @@ window.closeCartModal = function() {
     document.body.style.overflow = '';
 };
 
-// Checkout — navigate to dedicated checkout page
+// Checkout — navigate to dedicated checkout page (login guard)
 window.openCheckout = function() {
     if (cart.length === 0) { alert('Your cart is empty!'); return; }
     closeCartModal();
-    window.location.href = 'checkout.html';
+    const loggedIn = localStorage.getItem('adomaLoggedIn');
+    if (!loggedIn) {
+        localStorage.setItem('adomaRedirectAfterLogin', 'checkout.html');
+        window.location.href = 'login.html';
+    } else {
+        window.location.href = 'checkout.html';
+    }
 };
 
 window.closeCheckout = function() {
@@ -398,8 +517,8 @@ function displayProducts(filter = 'All', searchQuery = '') {
                         <button class="overlay-btn" onclick="addToCart(${p.id})" aria-label="Add ${escapeHTML(p.name)} to cart">
                             <i class="fas fa-cart-plus" aria-hidden="true"></i>
                         </button>
-                        <button class="overlay-btn" aria-label="Add ${escapeHTML(p.name)} to wishlist">
-                            <i class="fas fa-heart" aria-hidden="true"></i>
+                        <button class="overlay-btn ${wishlist.some(w => w.id === p.id) ? 'wishlisted' : ''}" onclick="toggleWishlist(${p.id})" aria-label="${wishlist.some(w => w.id === p.id) ? 'Remove from wishlist' : 'Add to wishlist'}">
+                            <i class="${wishlist.some(w => w.id === p.id) ? 'fas' : 'far'} fa-heart" aria-hidden="true"></i>
                         </button>
                     </div>
                 </div>
@@ -540,9 +659,33 @@ function getActiveFilter() {
 document.addEventListener('DOMContentLoaded', function() {
 
     loadCart();
+    loadWishlist();
+    updateWishlistCount();
     displayProducts();
     startCountdown();
     initSearch();
+
+    // Wishlist icon (desktop nav)
+    const wishlistIcon = document.getElementById('wishlistIcon');
+    if (wishlistIcon) {
+        wishlistIcon.addEventListener('click', openWishlistModal);
+        wishlistIcon.addEventListener('keydown', e => e.key === 'Enter' && openWishlistModal());
+    }
+
+    // Wishlist icon (mobile menu)
+    const mobileWishlistLink = document.getElementById('mobileWishlistLink');
+    if (mobileWishlistLink) {
+        mobileWishlistLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            openWishlistModal();
+        });
+    }
+
+    // Close wishlist
+    const closeWishlistBtn = document.getElementById('closeWishlistBtn');
+    const wishlistOverlay = document.getElementById('wishlistOverlay');
+    if (closeWishlistBtn) closeWishlistBtn.addEventListener('click', closeWishlistModal);
+    if (wishlistOverlay) wishlistOverlay.addEventListener('click', closeWishlistModal);
 
     // Dynamic footer year
     const footerCopyright = document.getElementById('footerCopyright');
@@ -662,7 +805,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.setAttribute('aria-selected', 'true');
             displayProducts(this.textContent.trim(), document.getElementById('searchInput').value.trim().toLowerCase());
         });
-    }); */
+    }); */ //will fix later
 
     // Back to top
     const backToTop = document.getElementById('backToTop');

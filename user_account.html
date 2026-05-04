@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account | Adoma Supermarket</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="user_account.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="nav-bar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="index.html" class="logo">adoma<span>supermarket</span></a>
+
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#products-section">Products</a>
+                <a href="index.html#promo-section">Deals</a>
+                <a href="index.html#footer">Contact</a>
+            </div>
+
+            <div class="nav-icons">
+                <div class="icon-wrapper" id="cartIcon" role="button" tabindex="0" aria-label="Open shopping cart">
+                    <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                    <span class="badge" id="cartCount">0</span>
+                </div>
+                <div class="icon-wrapper" id="wishlistIcon" role="button" tabindex="0" aria-label="Open wishlist">
+                    <i class="fas fa-heart" aria-hidden="true"></i>
+                    <span class="badge" id="wishlistCount">0</span>
+                </div>
+                <div class="icon-wrapper active" role="button" tabindex="0" aria-label="Account" style="color: var(--orange);">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+        <a href="index.html"><i class="fas fa-home"></i> Home</a>
+        <a href="index.html#products-section"><i class="fas fa-box"></i> Products</a>
+        <a href="index.html#promo-section"><i class="fas fa-tag"></i> Deals</a>
+        <div class="mobile-divider"></div>
+        <a href="index.html" id="mobileCartLink"><i class="fas fa-shopping-cart"></i> Cart <span class="badge-mobile" id="mobileCartCount">0</span></a>
+        <a href="#" id="mobileWishlistLink"><i class="fas fa-heart"></i> Wishlist <span class="badge-mobile" id="mobileWishlistCount">0</span></a>
+        <a href="user_account.html" style="color:var(--orange);"><i class="fas fa-user"></i> Account</a>
+    </div>
+
+    <!-- ── Account page ── -->
+    <div class="account-page">
+        <div class="account-container">
+
+            <!-- Sidebar -->
+            <aside class="account-sidebar">
+                <div class="profile-card">
+                    <div class="avatar-ring" id="avatarInitials">JD</div>
+                    <div>
+                        <div class="profile-name" id="sidebarName">John Doe</div>
+                        <div class="profile-email" id="sidebarEmail">john@example.com</div>
+                        <div class="member-badge"><i class="fas fa-star" style="font-size:0.7rem;"></i> Member</div>
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav" role="tablist">
+                    <div class="sidebar-nav-item active" data-tab="overview" role="tab" tabindex="0">
+                        <i class="fas fa-home"></i> Overview
+                    </div>
+                    <div class="sidebar-nav-item" data-tab="profile" role="tab" tabindex="0">
+                        <i class="fas fa-user-edit"></i> Profile
+                    </div>
+                    <div class="sidebar-nav-item" data-tab="orders" role="tab" tabindex="0">
+                        <i class="fas fa-box-open"></i> Orders
+                    </div>
+                    <div class="sidebar-nav-item" data-tab="transactions" role="tab" tabindex="0">
+                        <i class="fas fa-receipt"></i> Transactions
+                    </div>
+                    <div class="sidebar-nav-item" data-tab="wishlist" role="tab" tabindex="0">
+                        <i class="fas fa-heart"></i> Wishlist
+                    </div>
+                    <div class="sidebar-nav-item" data-tab="settings" role="tab" tabindex="0">
+                        <i class="fas fa-cog"></i> Settings
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Main content -->
+            <main class="account-main">
+
+                <!-- ── Overview ── -->
+                <div class="tab-panel active" id="tab-overview">
+                    <div class="section-heading">
+                        <div>
+                            <h2>Welcome back, <span id="greetName" style="color:var(--orange);">there</span> 👋</h2>
+                            <p>Here's a summary of your account activity</p>
+                        </div>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon orange"><i class="fas fa-box-open"></i></div>
+                            <div>
+                                <div class="stat-value" id="statOrders">0</div>
+                                <div class="stat-label">Total Orders</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon navy"><i class="fas fa-wallet"></i></div>
+                            <div>
+                                <div class="stat-value" id="statSpent">GH₵0</div>
+                                <div class="stat-label">Total Spent</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon green"><i class="fas fa-heart"></i></div>
+                            <div>
+                                <div class="stat-value" id="statWishlist">0</div>
+                                <div class="stat-label">Wishlist Items</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent orders preview -->
+                    <div class="profile-form-card">
+                        <div class="form-card-title">
+                            <i class="fas fa-clock"></i> Recent Orders
+                        </div>
+                        <div id="recentOrdersList"></div>
+                    </div>
+                </div>
+
+                <!-- ── Profile ── -->
+                <div class="tab-panel" id="tab-profile">
+                    <div class="section-heading">
+                        <div><h2>My Profile</h2><p>Update your personal information</p></div>
+                    </div>
+
+                    <div class="profile-form-card">
+                        <div class="form-card-title"><i class="fas fa-user"></i> Personal Details</div>
+                        <div class="profile-grid">
+                            <div class="field-group">
+                                <label>First Name</label>
+                                <input type="text" id="firstName" placeholder="John">
+                            </div>
+                            <div class="field-group">
+                                <label>Last Name</label>
+                                <input type="text" id="lastName" placeholder="Doe">
+                            </div>
+                            <div class="field-group">
+                                <label>Email</label>
+                                <input type="email" id="profileEmail" placeholder="you@example.com">
+                            </div>
+                            <div class="field-group">
+                                <label>Phone</label>
+                                <input type="tel" id="profilePhone" placeholder="+233 XXX XXX">
+                            </div>
+                            <div class="field-group full">
+                                <label>Delivery Address</label>
+                                <textarea id="profileAddress" placeholder="123 Market Street, Accra, Ghana"></textarea>
+                            </div>
+                        </div>
+                        <button class="save-btn" onclick="saveProfile()">
+                            <i class="fas fa-save"></i> Save Changes
+                        </button>
+                    </div>
+
+                    <div class="profile-form-card">
+                        <div class="form-card-title"><i class="fas fa-lock"></i> Change Password</div>
+                        <div class="profile-grid">
+                            <div class="field-group full">
+                                <label>Current Password</label>
+                                <input type="password" id="currentPw" placeholder="••••••••">
+                            </div>
+                            <div class="field-group">
+                                <label>New Password</label>
+                                <input type="password" id="newPw" placeholder="••••••••">
+                            </div>
+                            <div class="field-group">
+                                <label>Confirm Password</label>
+                                <input type="password" id="confirmPw" placeholder="••••••••">
+                            </div>
+                        </div>
+                        <button class="save-btn" onclick="changePassword()">
+                            <i class="fas fa-key"></i> Update Password
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ── Orders ── -->
+                <div class="tab-panel" id="tab-orders">
+                    <div class="section-heading">
+                        <div><h2>Order History</h2><p>All your past purchases</p></div>
+                    </div>
+                    <div class="orders-list" id="fullOrdersList"></div>
+                </div>
+
+                <!-- ── Transactions ── -->
+                <div class="tab-panel" id="tab-transactions">
+                    <div class="section-heading">
+                        <div><h2>Transaction History</h2><p>A record of all your payments</p></div>
+                    </div>
+                    <div class="transactions-table-wrap">
+                        <table class="tx-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Date</th>
+                                    <th>Payment</th>
+                                    <th>Type</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody id="txTableBody"></tbody>
+                        </table>
+                        <div id="txEmpty" class="empty-state" style="display:none;">
+                            <i class="fas fa-receipt"></i>
+                            <p>No transactions yet</p>
+                            <a href="index.html"><i class="fas fa-shopping-bag"></i> Start Shopping</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ── Wishlist ── -->
+                <div class="tab-panel" id="tab-wishlist">
+                    <div class="section-heading">
+                        <div><h2>My Wishlist</h2><p>Products you've saved for later</p></div>
+                    </div>
+                    <div class="wishlist-grid" id="accountWishlistGrid"></div>
+                    <div id="wishlistEmpty" class="empty-state" style="display:none;">
+                        <i class="fas fa-heart"></i>
+                        <p>Your wishlist is empty</p>
+                        <a href="index.html"><i class="fas fa-shopping-bag"></i> Browse Products</a>
+                    </div>
+                </div>
+
+                <!-- ── Settings ── -->
+                <div class="tab-panel" id="tab-settings">
+                    <div class="section-heading">
+                        <div><h2>Settings</h2><p>Manage your preferences</p></div>
+                    </div>
+
+                    <div class="profile-form-card">
+                        <div class="form-card-title"><i class="fas fa-bell"></i> Notifications</div>
+                        <div class="settings-row">
+                            <div class="settings-row-info">
+                                <h4>Order Updates</h4>
+                                <p>Get notified when your order status changes</p>
+                            </div>
+                            <label class="toggle">
+                                <input type="checkbox" checked id="notifOrders">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="settings-row">
+                            <div class="settings-row-info">
+                                <h4>Promotions & Deals</h4>
+                                <p>Receive alerts about sales and special offers</p>
+                            </div>
+                            <label class="toggle">
+                                <input type="checkbox" checked id="notifDeals">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="settings-row">
+                            <div class="settings-row-info">
+                                <h4>Newsletter</h4>
+                                <p>Weekly product highlights and tips</p>
+                            </div>
+                            <label class="toggle">
+                                <input type="checkbox" id="notifNewsletter">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <button class="save-btn" onclick="saveSettings()">
+                            <i class="fas fa-save"></i> Save Preferences
+                        </button>
+                    </div>
+
+                    <div class="danger-zone" style="margin-top:1.5rem;">
+                        <div class="danger-title"><i class="fas fa-exclamation-triangle"></i> Danger Zone</div>
+                        <p class="danger-desc">Permanently delete your account and all associated data. This action cannot be undone.</p>
+                        <button class="danger-btn" onclick="confirmDelete()">
+                            <i class="fas fa-trash"></i> Delete Account
+                        </button>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="account-toast" id="accountToast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMsg">Saved!</span>
+    </div>
+
+    <script src="user_account.js"></script>
+</body>
+</html>
