@@ -206,19 +206,43 @@
         });
 
         // Mobile sidebar toggle
-        const mobileToggle   = document.getElementById('mobileFilterToggle');
-        const sidebar        = document.getElementById('sidebar');
-        const sidebarOverlay = document.getElementById('sidebarOverlay');
-        if (mobileToggle && sidebar) {
-            mobileToggle.addEventListener('click', () => {
-                sidebar.classList.toggle('mobile-open');
-                if (sidebarOverlay) sidebarOverlay.classList.toggle('active');
+        const mobileToggle    = document.getElementById('mobileFilterToggle');
+        const sidebar         = document.getElementById('sidebar');
+        const sidebarOverlay  = document.getElementById('sidebarOverlay');
+        const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
+
+        function openSidebar() {
+            sidebar.classList.add('mobile-open');
+            if (sidebarOverlay) sidebarOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            if (sidebarCloseBtn) sidebarCloseBtn.style.display = 'inline-block';
+        }
+        function closeSidebar() {
+            sidebar.classList.remove('mobile-open');
+            if (sidebarOverlay) sidebarOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+            if (sidebarCloseBtn) sidebarCloseBtn.style.display = 'none';
+        }
+        if (mobileToggle)    mobileToggle.addEventListener('click', openSidebar);
+        if (sidebarCloseBtn) sidebarCloseBtn.addEventListener('click', closeSidebar);
+        if (sidebarOverlay)  sidebarOverlay.addEventListener('click', closeSidebar);
+
+        // Mobile search toggle (products page)
+        const mobileSearchToggle = document.getElementById('mobileSearchToggle');
+        const mobileSearchBar    = document.getElementById('mobileSearchBar');
+        const mobileSearchClose  = document.getElementById('mobileSearchClose');
+        const mobileSearchInputEl = document.getElementById('mobileSearchInput');
+        if (mobileSearchToggle && mobileSearchBar) {
+            mobileSearchToggle.addEventListener('click', () => {
+                mobileSearchBar.classList.toggle('open');
+                if (mobileSearchBar.classList.contains('open') && mobileSearchInputEl) mobileSearchInputEl.focus();
             });
         }
-        if (sidebarOverlay) {
-            sidebarOverlay.addEventListener('click', () => {
-                sidebar.classList.remove('mobile-open');
-                sidebarOverlay.classList.remove('active');
+        if (mobileSearchClose) mobileSearchClose.addEventListener('click', () => mobileSearchBar.classList.remove('open'));
+        if (mobileSearchInputEl) {
+            mobileSearchInputEl.addEventListener('input', function() {
+                searchQuery = this.value.trim().toLowerCase();
+                renderProducts();
             });
         }
     }
