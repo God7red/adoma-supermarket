@@ -1741,7 +1741,11 @@ body {
     }
 
     .current-price {
-        font-size: 1.1rem;
+        font-size: 0.95rem;
+    }
+
+    .old-price {
+        font-size: 0.8rem;
     }
 
     /* to always show overlay buttons on touch */

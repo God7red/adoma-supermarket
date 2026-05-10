@@ -227,8 +227,8 @@
         if (sidebarCloseBtn) sidebarCloseBtn.addEventListener('click', closeSidebar);
         if (sidebarOverlay)  sidebarOverlay.addEventListener('click', closeSidebar);
 
-        // Mobile search toggle (products page)
-        const mobileSearchToggle = document.getElementById('mobileSearchToggle');
+        // Mobile search toggle (products page) 
+       /* const mobileSearchToggle = document.getElementById('mobileSearchToggle');
         const mobileSearchBar    = document.getElementById('mobileSearchBar');
         const mobileSearchClose  = document.getElementById('mobileSearchClose');
         const mobileSearchInputEl = document.getElementById('mobileSearchInput');
@@ -244,7 +244,7 @@
                 searchQuery = this.value.trim().toLowerCase();
                 renderProducts();
             });
-        }
+        } */
     }
 
     //search products page
