@@ -75,6 +75,16 @@ const products = [
         reviews: 135,
         image: 'https://gh.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/38/0300141/1.jpg?7025',
         badge: 'Cereals'
+    },
+    {
+        id: 8,
+        name: 'BB Cocktail Fruit Drink',
+        category: 'Beverages',
+        price: 11.99,
+        rating: 4.7,
+        reviews: 135,
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStY_R4xMpv6w_h3UHRtM6XL22vSrVhZkn3zQ&s',
+        badge: 'Best Seller'
     }
 ];
 
@@ -479,7 +489,9 @@ function displayProducts(filter = 'All', searchQuery = '') {
         filtered = filtered.filter(p => p.oldPrice !== null);
     } else if (filter === 'Best Sellers') {
         filtered = filtered.filter(p => p.badge === 'Best Seller');
-    }
+    } else if (filter === 'Beverages') {
+    filtered = filtered.filter(p => p.category === 'Beverage' || p.category === 'Beverages');
+}
 
     if (searchQuery) {
         const q = searchQuery.toLowerCase();
